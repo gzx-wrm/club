@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PersistentConfig">
+    <option name="historyConfigList">
+      <map>
+        <entry key="subject_brief">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="SubjectBriefDao" />
+              <option name="daoPackage" value="generator" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="daoTargetFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra/src/main/java/com/gzx/club/subject/infra/basic/mapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="SubjectBrief" />
+              <option name="modelPackage" value="generator" />
+              <option name="modelTargetFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra/src/main/java/com/gzx/club/subject/infra/entity" />
+              <option name="name" value="subject_brief" />
+              <option name="needToStringHashcodeEquals" value="true" />
+              <option name="offsetLimit" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra" />
+              <option name="tableName" value="subject_brief" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="generator" />
+              <option name="xmlTargetFolder" value="E:\Java_project\club\club-subject\club-subject-infra\src\main\resources" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="subject_category">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="SubjectCategoryDao" />
+              <option name="daoPackage" value="generator" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="daoTargetFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra/src/main/java/com/gzx/club/subject/infra/basic/mapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="SubjectCategory" />
+              <option name="modelPackage" value="generator" />
+              <option name="modelTargetFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra/src/main/java/com/gzx/club/subject/infra/entity" />
+              <option name="name" value="subject_category" />
+              <option name="needToStringHashcodeEquals" value="true" />
+              <option name="offsetLimit" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra" />
+              <option name="tableName" value="subject_category" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="generator" />
+              <option name="xmlTargetFolder" value="E:\Java_project\club\club-subject\club-subject-infra\src\main\resources" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="subject_info">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="SubjectInfoDao" />
+              <option name="daoPackage" value="generator" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="daoTargetFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra/src/main/java/com/gzx/club/subject/infra/basic/mapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="SubjectInfo" />
+              <option name="modelPackage" value="generator" />
+              <option name="modelTargetFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra/src/main/java/com/gzx/club/subject/infra/entity" />
+              <option name="name" value="subject_info" />
+              <option name="needToStringHashcodeEquals" value="true" />
+              <option name="offsetLimit" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra" />
+              <option name="tableName" value="subject_info" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="generator" />
+              <option name="xmlTargetFolder" value="E:\Java_project\club\club-subject\club-subject-infra\src\main\resources" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="subject_judge">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="SubjectJudgeDao" />
+              <option name="daoPackage" value="generator" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="daoTargetFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra/src/main/java/com/gzx/club/subject/infra/basic/mapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="SubjectJudge" />
+              <option name="modelPackage" value="generator" />
+              <option name="modelTargetFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra/src/main/java/com/gzx/club/subject/infra/entity" />
+              <option name="name" value="subject_judge" />
+              <option name="needToStringHashcodeEquals" value="true" />
+              <option name="offsetLimit" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra" />
+              <option name="tableName" value="subject_judge" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="generator" />
+              <option name="xmlTargetFolder" value="E:\Java_project\club\club-subject\club-subject-infra\src\main\resources" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="subject_label">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="SubjectLabelDao" />
+              <option name="daoPackage" value="generator" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="daoTargetFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra/src/main/java/com/gzx/club/subject/infra/basic/mapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="SubjectLabel" />
+              <option name="modelPackage" value="generator" />
+              <option name="modelTargetFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra/src/main/java/com/gzx/club/subject/infra/entity" />
+              <option name="name" value="subject_label" />
+              <option name="needToStringHashcodeEquals" value="true" />
+              <option name="offsetLimit" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra" />
+              <option name="tableName" value="subject_label" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="generator" />
+              <option name="xmlTargetFolder" value="E:\Java_project\club\club-subject\club-subject-infra\src\main\resources" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="subject_liked">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="SubjectLikedDao" />
+              <option name="daoPackage" value="generator" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="daoTargetFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra/src/main/java/com/gzx/club/subject/infra/basic/mapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="SubjectLiked" />
+              <option name="modelPackage" value="generator" />
+              <option name="modelTargetFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra/src/main/java/com/gzx/club/subject/infra/entity" />
+              <option name="name" value="subject_liked" />
+              <option name="needToStringHashcodeEquals" value="true" />
+              <option name="offsetLimit" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra" />
+              <option name="tableName" value="subject_liked" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="generator" />
+              <option name="xmlTargetFolder" value="E:\Java_project\club\club-subject\club-subject-infra\src\main\resources" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="subject_mapping">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="SubjectMappingDao" />
+              <option name="daoPackage" value="generator" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="daoTargetFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra/src/main/java/com/gzx/club/subject/infra/basic/mapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="SubjectMapping" />
+              <option name="modelPackage" value="generator" />
+              <option name="modelTargetFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra/src/main/java/com/gzx/club/subject/infra/entity" />
+              <option name="name" value="subject_mapping" />
+              <option name="needToStringHashcodeEquals" value="true" />
+              <option name="offsetLimit" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra" />
+              <option name="tableName" value="subject_mapping" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="generator" />
+              <option name="xmlTargetFolder" value="E:\Java_project\club\club-subject\club-subject-infra\src\main\resources" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="subject_multiple">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="SubjectMultipleDao" />
+              <option name="daoPackage" value="generator" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="daoTargetFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra/src/main/java/com/gzx/club/subject/infra/basic/mapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="SubjectMultiple" />
+              <option name="modelPackage" value="generator" />
+              <option name="modelTargetFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra/src/main/java/com/gzx/club/subject/infra/entity" />
+              <option name="name" value="subject_multiple" />
+              <option name="needToStringHashcodeEquals" value="true" />
+              <option name="offsetLimit" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra" />
+              <option name="tableName" value="subject_multiple" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="generator" />
+              <option name="xmlTargetFolder" value="E:\Java_project\club\club-subject\club-subject-infra\src\main\resources" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="subject_radio">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="SubjectRadioDao" />
+              <option name="daoPackage" value="generator" />
+              <option name="daoPostfix" value="Dao" />
+              <option name="daoTargetFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra/src/main/java/com/gzx/club/subject/infra/basic/mapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="SubjectRadio" />
+              <option name="modelPackage" value="generator" />
+              <option name="modelTargetFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra/src/main/java/com/gzx/club/subject/infra/entity" />
+              <option name="name" value="subject_radio" />
+              <option name="needToStringHashcodeEquals" value="true" />
+              <option name="offsetLimit" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="id" />
+              <option name="projectFolder" value="$PROJECT_DIR$/club-subject/club-subject-infra" />
+              <option name="tableName" value="subject_radio" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="generator" />
+              <option name="xmlTargetFolder" value="E:\Java_project\club\club-subject\club-subject-infra\src\main\resources" />
+            </Config>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
