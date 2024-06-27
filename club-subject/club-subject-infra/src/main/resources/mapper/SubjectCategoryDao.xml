@@ -148,6 +148,11 @@
             </if>
         </where>
     </select>
+    <select id="querySubjectCount" resultType="java.lang.Integer">
+        select count(distinct subject_id)
+        from subject_mapping where
+        category_id = #{id};
+    </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">

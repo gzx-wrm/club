@@ -47,4 +47,14 @@ public interface SubjectCategoryService {
      */
     int deleteById(Long id);
 
+    Integer querySubjectCount(Long id);
+
+
+    /**
+     * @Author: gzx
+     *
+     * @Description: 联表查询分类和标签
+     * @Date: 2024-06-25
+     */
+    List<SubjectCategory> queryCategoryAndLabel(SubjectCategory subjectCategory);
 }

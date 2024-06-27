@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class SubjectCategoryDTO implements Serializable {
@@ -28,5 +29,15 @@ public class SubjectCategoryDTO implements Serializable {
      * 父级id
      */
     private Long parentId;
+
+    /**
+     * 数量
+     */
+    private Integer count;
+
+    /**
+     * 标签信息
+     */
+    private List<SubjectLabelDTO> labelDTOList;
 }
 

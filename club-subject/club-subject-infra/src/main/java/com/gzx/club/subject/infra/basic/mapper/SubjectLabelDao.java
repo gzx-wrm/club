@@ -9,7 +9,7 @@ import java.util.List;
  * 题目标签表(SubjectLabel)表数据库访问层
  *
  * @author makejava
- * @since 2024-06-03 15:07:19
+ * @since 2024-06-20 02:45:32
  */
 public interface SubjectLabelDao {
 
@@ -20,8 +20,6 @@ public interface SubjectLabelDao {
      * @return 实例对象
      */
     SubjectLabel queryById(Long id);
-
-    List<SubjectLabel> queryByIds(@Param("list") List<Long> ids);
 
 
     /**
@@ -73,5 +71,8 @@ public interface SubjectLabelDao {
      */
     int deleteById(Long id);
 
+    List<SubjectLabel> queryByCondition(SubjectLabel subjectLabel);
+
+    List<SubjectLabel> queryByIds(@Param("entities") List<Long> labelIdList);
 }
 

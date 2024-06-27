@@ -12,7 +12,7 @@ import java.util.List;
  * 题目标签表(SubjectLabel)表服务实现类
  *
  * @author makejava
- * @since 2024-06-03 15:07:19
+ * @since 2024-06-20 02:46:07
  */
 @Service("subjectLabelService")
 public class SubjectLabelServiceImpl implements SubjectLabelService {
@@ -30,10 +30,6 @@ public class SubjectLabelServiceImpl implements SubjectLabelService {
         return this.subjectLabelDao.queryById(id);
     }
 
-    @Override
-    public List<SubjectLabel> queryByIds(List<Long> ids) {
-        return this.subjectLabelDao.queryByIds(ids);
-    }
 
     /**
      * 新增数据
@@ -64,7 +60,17 @@ public class SubjectLabelServiceImpl implements SubjectLabelService {
      * @return 是否成功
      */
     @Override
-    public int deleteById(Long id) {
-        return this.subjectLabelDao.deleteById(id);
+    public boolean deleteById(Long id) {
+        return this.subjectLabelDao.deleteById(id) > 0;
+    }
+
+    @Override
+    public List<SubjectLabel> queryByCondition(SubjectLabel subjectLabel) {
+        return this.subjectLabelDao.queryByCondition(subjectLabel);
+    }
+
+    @Override
+    public List<SubjectLabel> queryByIds(List<Long> labelIdList) {
+        return this.subjectLabelDao.queryByIds(labelIdList);
     }
 }

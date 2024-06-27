@@ -8,7 +8,6 @@ import com.gzx.club.subject.domain.entity.SubjectInfoBO;
 import com.gzx.club.subject.domain.entity.SubjectOptionBO;
 import com.gzx.club.subject.domain.handler.SubjectTypeHandler;
 import com.gzx.club.subject.domain.handler.SubjectTypeHandlerFactory;
-import com.gzx.club.subject.domain.service.SubjectCategoryDomainService;
 import com.gzx.club.subject.domain.service.SubjectInfoDomainService;
 import com.gzx.club.subject.infra.basic.entity.SubjectInfo;
 import com.gzx.club.subject.infra.basic.entity.SubjectLabel;

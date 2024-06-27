@@ -25,4 +25,11 @@ public interface SubjectCategoryDomainService {
     Boolean delete(SubjectCategoryBO subjectCategoryBO);
 
 
+    /**
+     * @Author: gzx
+     *       
+     * @Description: 查询
+     * @Date: 2024-06-25
+     */
+    List<SubjectCategoryBO> queryCategoryAndLabel(SubjectCategoryBO subjectCategoryBO);
 }

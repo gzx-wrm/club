@@ -8,7 +8,7 @@ import java.util.List;
  * 题目标签表(SubjectLabel)表服务接口
  *
  * @author makejava
- * @since 2024-06-03 15:07:19
+ * @since 2024-06-20 02:46:07
  */
 public interface SubjectLabelService {
 
@@ -19,8 +19,6 @@ public interface SubjectLabelService {
      * @return 实例对象
      */
     SubjectLabel queryById(Long id);
-
-    List<SubjectLabel> queryByIds(List<Long> ids);
 
     /**
      * 新增数据
@@ -44,6 +42,9 @@ public interface SubjectLabelService {
      * @param id 主键
      * @return 是否成功
      */
-    int deleteById(Long id);
+    boolean deleteById(Long id);
 
+    List<SubjectLabel> queryByCondition(SubjectLabel subjectLabel);
+
+    List<SubjectLabel> queryByIds(List<Long> labelIdList);
 }

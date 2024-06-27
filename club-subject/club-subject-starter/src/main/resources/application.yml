@@ -26,7 +26,7 @@ spring:
           enabled: true
 
 server:
-  port: 8002
+  port: 8001
 
 logging:
   config: classpath:log4j2-spring.xml

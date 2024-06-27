@@ -9,11 +9,11 @@ import java.io.Serializable;
  * 题目标签表(SubjectLabel)实体类
  *
  * @author makejava
- * @since 2024-06-03 15:07:19
+ * @since 2024-06-20 02:45:46
  */
 @Data
 public class SubjectLabel implements Serializable {
-    private static final long serialVersionUID = 358924933474001660L;
+    private static final long serialVersionUID = 648808926131576164L;
     /**
      * 主键
      */
@@ -46,6 +46,7 @@ public class SubjectLabel implements Serializable {
     private Date updateTime;
 
     private Integer isDeleted;
+
 
 }
 

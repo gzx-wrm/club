@@ -11,6 +11,10 @@
     <description>社区项目父项目</description>
     <modules>
         <module>club-subject</module>
+        <module>club-oss</module>
+        <module>club-auth</module>
+        <module>club-gateway</module>
+        <module>club-wx</module>
     </modules>
 
     <properties>

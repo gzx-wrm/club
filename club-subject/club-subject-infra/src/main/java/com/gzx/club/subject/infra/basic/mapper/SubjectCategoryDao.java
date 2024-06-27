@@ -79,5 +79,8 @@ public interface SubjectCategoryDao {
      */
     int deleteById(Long id);
 
+    Integer querySubjectCount(Long id);
+
+//    List<SubjectCategory> queryCategoryAndLabel(SubjectCategory subjectCategory);
 }
 

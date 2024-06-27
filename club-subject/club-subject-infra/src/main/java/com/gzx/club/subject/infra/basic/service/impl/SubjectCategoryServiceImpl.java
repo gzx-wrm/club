@@ -6,7 +6,9 @@ import com.gzx.club.subject.infra.basic.service.SubjectCategoryService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 题目分类(SubjectCategory)表服务实现类
@@ -67,5 +69,15 @@ public class SubjectCategoryServiceImpl implements SubjectCategoryService {
     @Override
     public int deleteById(Long id) {
         return this.subjectCategoryDao.deleteById(id);
+    }
+
+    @Override
+    public Integer querySubjectCount(Long id) {
+        return this.subjectCategoryDao.querySubjectCount(id);
+    }
+
+    @Override
+    public List<SubjectCategory> queryCategoryAndLabel(SubjectCategory subjectCategory) {
+        return Collections.emptyList();
     }
 }

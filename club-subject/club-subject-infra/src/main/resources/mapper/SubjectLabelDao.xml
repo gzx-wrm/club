@@ -6,11 +6,12 @@
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="labelName" column="label_name" jdbcType="VARCHAR"/>
         <result property="sortNum" column="sort_num" jdbcType="INTEGER"/>
+        <result property="categoryId" column="category_id" jdbcType="VARCHAR"/>
         <result property="createdBy" column="created_by" jdbcType="VARCHAR"/>
         <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
         <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
-        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->
@@ -18,11 +19,12 @@
         select id,
                label_name,
                sort_num,
+               category_id,
                created_by,
                created_time,
                update_by,
-               is_deleted,
-               update_time
+               update_time,
+               is_deleted
         from subject_label
         where id = #{id}
     </select>
@@ -30,7 +32,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="SubjectLabelMap">
         select
-        id, label_name, sort_num, created_by, created_time, update_by, is_deleted, update_time
+        id, label_name, sort_num, category_id, created_by, created_time, update_by, update_time, is_deleted
         from subject_label
         <where>
             <if test="id != null">
@@ -42,6 +44,9 @@
             <if test="sortNum != null">
                 and sort_num = #{sortNum}
             </if>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
             <if test="createdBy != null and createdBy != ''">
                 and created_by = #{createdBy}
             </if>
@@ -51,11 +56,11 @@
             <if test="updateBy != null and updateBy != ''">
                 and update_by = #{updateBy}
             </if>
-            <if test="isDeleted != null">
-                and is_deleted = #{isDeleted}
-            </if>
             <if test="updateTime != null">
                 and update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
             </if>
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
@@ -75,6 +80,9 @@
             <if test="sortNum != null">
                 and sort_num = #{sortNum}
             </if>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
             <if test="createdBy != null and createdBy != ''">
                 and created_by = #{createdBy}
             </if>
@@ -84,46 +92,83 @@
             <if test="updateBy != null and updateBy != ''">
                 and update_by = #{updateBy}
             </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
             <if test="isDeleted != null">
                 and is_deleted = #{isDeleted}
+            </if>
+        </where>
+    </select>
+    <select id="queryByCondition" resultType="com.gzx.club.subject.infra.basic.entity.SubjectLabel">
+        select
+        id, label_name, sort_num, category_id, created_by, created_time, update_by, update_time, is_deleted
+        from subject_label
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="labelName != null and labelName != ''">
+                and label_name = #{labelName}
+            </if>
+            <if test="sortNum != null">
+                and sort_num = #{sortNum}
+            </if>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            <if test="createdBy != null and createdBy != ''">
+                and created_by = #{createdBy}
+            </if>
+            <if test="createdTime != null">
+                and created_time = #{createdTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
             </if>
             <if test="updateTime != null">
                 and update_time = #{updateTime}
             </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
         </where>
     </select>
-
-    <select id="queryByIds" resultMap="SubjectLabelMap">
+    <select id="queryByIds" resultType="com.gzx.club.subject.infra.basic.entity.SubjectLabel">
         select
-        id, label_name, sort_num, created_by, created_time, update_by, is_deleted, update_time
+            id, label_name, sort_num, category_id, created_by, created_time, update_by, update_time, is_deleted
         from subject_label
         where id in
-        <foreach open="(" close=")" collection="list" item="id" separator=",">
-            #{id}
+        <foreach collection="entities" item="entity" separator="," open="(" close=")">
+            #{entity}
         </foreach>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into subject_label(label_name, sort_num, category_id, created_by, created_time, update_by, is_deleted, update_time)
-        values (#{labelName}, #{sortNum}, #{categoryId}, #{createdBy}, #{createdTime}, #{updateBy}, #{isDeleted}, #{updateTime})
+        insert into subject_label(label_name, sort_num, category_id, created_by, created_time, update_by, update_time,
+                                  is_deleted)
+        values (#{labelName}, #{sortNum}, #{categoryId}, #{createdBy}, #{createdTime}, #{updateBy}, #{updateTime},
+                #{isDeleted})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into subject_label(label_name, sort_num, category_id, created_by, created_time, update_by, is_deleted, update_time)
+        insert into subject_label(label_name, sort_num, category_id, created_by, created_time, update_by, update_time,
+        is_deleted)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.labelName}, #{entity.sortNum}, #{entity.categoryId}, #{entity.createdBy}, #{entity.createdTime}, #{entity.updateBy},
-            #{entity.isDeleted}, #{entity.updateTime})
+            (#{entity.labelName}, #{entity.sortNum}, #{entity.categoryId}, #{entity.createdBy}, #{entity.createdTime},
+            #{entity.updateBy}, #{entity.updateTime}, #{entity.isDeleted})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into subject_label(label_name, sort_num, category_id, created_by, created_time, update_by, is_deleted, update_time)
+        insert into subject_label(label_name, sort_num, category_id, created_by, created_time, update_by, update_time,
+        is_deleted)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.labelName}, #{entity.sortNum}, #{entity.categoryId}, #{entity.createdBy}, #{entity.createdTime}, #{entity.updateBy},
-            #{entity.isDeleted}, #{entity.updateTime})
+            (#{entity.labelName}, #{entity.sortNum}, #{entity.categoryId}, #{entity.createdBy}, #{entity.createdTime},
+            #{entity.updateBy}, #{entity.updateTime}, #{entity.isDeleted})
         </foreach>
         on duplicate key update
         label_name = values(label_name),
@@ -132,8 +177,8 @@
         created_by = values(created_by),
         created_time = values(created_time),
         update_by = values(update_by),
-        is_deleted = values(is_deleted),
-        update_time = values(update_time)
+        update_time = values(update_time),
+        is_deleted = values(is_deleted)
     </insert>
 
     <!--通过主键修改数据-->
@@ -147,7 +192,7 @@
                 sort_num = #{sortNum},
             </if>
             <if test="categoryId != null">
-                category_id = #{categoryId}
+                category_id = #{categoryId},
             </if>
             <if test="createdBy != null and createdBy != ''">
                 created_by = #{createdBy},
@@ -158,11 +203,11 @@
             <if test="updateBy != null and updateBy != ''">
                 update_by = #{updateBy},
             </if>
-            <if test="isDeleted != null">
-                is_deleted = #{isDeleted},
-            </if>
             <if test="updateTime != null">
                 update_time = #{updateTime},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
             </if>
         </set>
         where id = #{id}
