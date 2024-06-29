@@ -26,7 +26,8 @@ public class ThreadPoolConfig {
                 5,
                 TimeUnit.SECONDS,
                 new LinkedBlockingDeque<>(),
-                Executors.defaultThreadFactory(),
+//                Executors.defaultThreadFactory(),
+                new CustomNameThreadFactory("labelThreadPool"),
                 new ThreadPoolExecutor.CallerRunsPolicy());
     }
 }

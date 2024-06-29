@@ -1,6 +1,6 @@
-package com.gzx.club.auth.common.entity;
+package com.gzx.club.auth.api.entity;
 
-import com.gzx.club.auth.common.enums.ResultCodeEnum;
+import com.gzx.club.auth.api.enums.ResultCodeEnum;
 import lombok.Data;
 
 @Data

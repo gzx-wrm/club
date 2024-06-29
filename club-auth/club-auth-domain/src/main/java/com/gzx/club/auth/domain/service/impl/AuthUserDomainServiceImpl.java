@@ -16,6 +16,7 @@ import com.gzx.club.auth.infra.basic.entity.*;
 import com.gzx.club.auth.infra.basic.service.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.LinkedList;
@@ -58,6 +59,7 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
     private static final String LOGIN_PREFIX = "loginCode";
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean register(AuthUserBO authUserBO) {
         AuthUser existAuthUser = new AuthUser();
         existAuthUser.setUserName(authUserBO.getUserName());
@@ -68,6 +70,9 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
         AuthUser authUser = AuthUserBOConverter.INSTANCE.convertBOToEntity(authUserBO);
         authUser.setIsDeleted(IsDeletedFlagEnum.UN_DELETED.code);
         authUser.setPassword(SaSecureUtil.md5BySalt(authUser.getPassword(), md5Salt));
+        if (StringUtils.isBlank(authUser.getAvatar())) {
+            authUser.setAvatar("http://117.72.10.84:9000/user/icon/微信图片_20231203153718(1).png");
+        }
         authUser.setStatus(AuthUserStatusEnum.OPEN.getCode());
         Integer count = authUserService.insert(authUser);
 

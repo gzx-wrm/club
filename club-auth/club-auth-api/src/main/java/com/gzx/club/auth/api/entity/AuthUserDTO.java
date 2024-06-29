@@ -1,4 +1,4 @@
-package com.gzx.club.auth.application.dto;
+package com.gzx.club.auth.api.entity;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.gzx.club.auth.common.enums;
+package com.gzx.club.auth.api.enums;
 
 import lombok.Getter;
 

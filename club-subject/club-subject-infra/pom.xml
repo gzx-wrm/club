@@ -42,5 +42,11 @@
             <artifactId>club-subject-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.gzx.club</groupId>
+            <artifactId>club-auth-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>

@@ -3,9 +3,9 @@ package com.gzx.club.auth.application.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Preconditions;
+import com.gzx.club.auth.api.entity.Result;
 import com.gzx.club.auth.application.convert.AuthPermissionDTOConverter;
 import com.gzx.club.auth.application.dto.AuthPermissionDTO;
-import com.gzx.club.auth.common.entity.Result;
 import com.gzx.club.auth.domain.entity.AuthPermissionBO;
 import com.gzx.club.auth.domain.service.AuthPermissionDomainService;
 import lombok.extern.slf4j.Slf4j;

@@ -2,9 +2,9 @@ package com.gzx.club.auth.application.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Preconditions;
+import com.gzx.club.auth.api.entity.Result;
 import com.gzx.club.auth.application.convert.AuthRoleDTOConverter;
 import com.gzx.club.auth.application.dto.AuthRoleDTO;
-import com.gzx.club.auth.common.entity.Result;
 import com.gzx.club.auth.domain.entity.AuthRoleBO;
 import com.gzx.club.auth.domain.service.AuthRoleDomainService;
 import lombok.extern.slf4j.Slf4j;

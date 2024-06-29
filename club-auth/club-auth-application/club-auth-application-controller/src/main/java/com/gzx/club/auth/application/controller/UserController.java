@@ -5,9 +5,10 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Preconditions;
+import com.gzx.club.auth.api.entity.AuthUserDTO;
+import com.gzx.club.auth.api.entity.Result;
 import com.gzx.club.auth.application.convert.AuthUserDTOConverter;
-import com.gzx.club.auth.application.dto.AuthUserDTO;
-import com.gzx.club.auth.common.entity.Result;
+import com.gzx.club.auth.application.utils.LoginUtil;
 import com.gzx.club.auth.domain.entity.AuthUserBO;
 import com.gzx.club.auth.domain.service.AuthUserDomainService;
 import lombok.extern.slf4j.Slf4j;
@@ -112,6 +113,7 @@ public class UserController {
                 log.info("UserController.getUserInfo.dto:{}", JSON.toJSONString(authUserDTO));
             }
             Preconditions.checkArgument(!StringUtils.isBlank(authUserDTO.getUserName()), "用户名不能为空");
+            log.info("loginId: {}", LoginUtil.getLoginId());
             AuthUserBO authUserBO = AuthUserDTOConverter.INSTANCE.convertDTOToBO(authUserDTO);
             AuthUserBO userInfo = authUserDomainService.getUserInfo(authUserBO);
             return Result.ok(AuthUserDTOConverter.INSTANCE.convertBOToDTO(userInfo));
@@ -139,7 +141,7 @@ public class UserController {
 
     // 测试登录，浏览器访问： http://localhost:8081/user/doLogin?username=zhang&password=123456
     @RequestMapping("doLogin")
-    public Result<SaResult> doLogin(String verifyCode) {
+    public Result<SaResult> doLogin(@RequestParam("validCode") String verifyCode) {
         try {
             Preconditions.checkNotNull(verifyCode, "验证码不能为空");
             SaTokenInfo tokenInfo = authUserDomainService.login(verifyCode);
