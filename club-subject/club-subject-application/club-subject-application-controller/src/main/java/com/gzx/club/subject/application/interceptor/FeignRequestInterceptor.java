@@ -1,6 +1,6 @@
 package com.gzx.club.subject.application.interceptor;
 
-import com.gzx.club.subject.application.utils.LoginUtil;
+import com.gzx.club.subject.common.utils.LoginUtil;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import org.springframework.stereotype.Component;

@@ -1,6 +1,5 @@
-package com.gzx.club.subject.application.context;
+package com.gzx.club.subject.common.context;
 
-import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.Objects;

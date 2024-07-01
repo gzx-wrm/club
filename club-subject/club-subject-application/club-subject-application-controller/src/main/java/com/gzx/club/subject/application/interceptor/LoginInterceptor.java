@@ -1,6 +1,6 @@
 package com.gzx.club.subject.application.interceptor;
 
-import com.gzx.club.subject.application.context.ContextHolder;
+import com.gzx.club.subject.common.context.ContextHolder;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;

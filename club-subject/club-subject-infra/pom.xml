@@ -30,6 +30,41 @@
             <version>8.0.26</version>
         </dependency>
 
+        <!--        springboot封装的es库-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>-->
+        <!--            <version>2.4.2</version>-->
+        <!--        </dependency>-->
+
+<!--        es的原生java库-->
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>7.5.2</version>
+        </dependency>
+
+<!--        与es数据库通信的client库-->
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-client</artifactId>
+            <version>7.5.2</version>
+        </dependency>
+
+<!--        高级client库，更方便管理集群-->
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+            <version>7.5.2</version>
+        </dependency>
+
+<!--        操作集合的库，更方便操作集合类-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.4</version>
+        </dependency>
+
         <!-- druid连接池 -->
         <dependency>
             <groupId>com.alibaba</groupId>

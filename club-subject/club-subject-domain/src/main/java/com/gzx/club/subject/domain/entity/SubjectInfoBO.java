@@ -67,5 +67,25 @@ public class SubjectInfoBO extends PageInfo implements Serializable {
      */
     private List<String> labelName;
 
+    /**
+     * 用于全文搜索的关键字
+     */
+    private String keyword;
+
+    /**
+     * 创建人昵称，获取贡献排行榜时用
+     */
+    private String createUser;
+
+    /**
+     * 创建人头像，获取贡献排行榜时用
+     */
+    private String createUserAvatar;
+
+    /**
+     * 题目数量，获取贡献排行榜时用
+     */
+    private Integer subjectCount;
+
 }
 

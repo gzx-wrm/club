@@ -24,7 +24,7 @@ public class UserRPC {
         }
         userInfo.setUserName(result.getData().getUserName());
         userInfo.setNickName(result.getData().getNickName());
-
+        userInfo.setAvatar(result.getData().getAvatar());
         return userInfo;
     }
 }

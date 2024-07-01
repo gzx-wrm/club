@@ -11,6 +11,7 @@ import com.gzx.club.subject.common.entity.Result;
 import com.gzx.club.subject.domain.entity.SubjectAnswerBO;
 import com.gzx.club.subject.domain.entity.SubjectInfoBO;
 import com.gzx.club.subject.domain.service.SubjectInfoDomainService;
+import com.gzx.club.subject.infra.basic.entity.EsSubjectInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -95,6 +96,40 @@ public class SubjectController {
         } catch (Exception e) {
             log.error("SubjectCategoryController.add.error:{}", e.getMessage(), e);
             return Result.fail("查询题目详情失败");
+        }
+    }
+
+    /**
+     * 全文检索
+     */
+    @PostMapping("/getSubjectPageBySearch")
+    public Result<PageResult<EsSubjectInfo>> getSubjectPageBySearch(@RequestBody SubjectInfoDTO subjectInfoDTO) {
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("SubjectController.getSubjectPageBySearch.dto:{}", JSON.toJSONString(subjectInfoDTO));
+            }
+            Preconditions.checkArgument(StringUtils.isNotBlank(subjectInfoDTO.getKeyword()), "关键词不能为空");
+            SubjectInfoBO subjectInfoBO = SubjectInfoDTOConverter.INSTANCE.convertDTOToBO(subjectInfoDTO);
+            PageResult<EsSubjectInfo> boPageResult = subjectInfoDomainService.getSubjectPageBySearch(subjectInfoBO);
+            return Result.ok(boPageResult);
+        } catch (Exception e) {
+            log.error("SubjectController.getSubjectPageBySearch.error:{}", e.getMessage(), e);
+            return Result.fail("全文检索失败");
+        }
+    }
+
+    /**
+     * 获取题目贡献榜
+     */
+    @PostMapping("/getContributeList")
+    public Result<List<SubjectInfoDTO>> getContributeList() {
+        try {
+            List<SubjectInfoBO> boList = subjectInfoDomainService.getContributeList();
+            List<SubjectInfoDTO> dtoList = SubjectInfoDTOConverter.INSTANCE.convertBOToDTO(boList);
+            return Result.ok(dtoList);
+        } catch (Exception e) {
+            log.error("SubjectCategoryController.getContributeList.error:{}", e.getMessage(), e);
+            return Result.fail("获取贡献榜失败");
         }
     }
 }

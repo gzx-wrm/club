@@ -8,6 +8,7 @@ import com.gzx.club.subject.domain.convert.SubjectLabelConverter;
 import com.gzx.club.subject.domain.entity.SubjectCategoryBO;
 import com.gzx.club.subject.domain.entity.SubjectLabelBO;
 import com.gzx.club.subject.domain.service.SubjectCategoryDomainService;
+import com.gzx.club.subject.domain.utils.CacheUtil;
 import com.gzx.club.subject.infra.basic.entity.SubjectCategory;
 import com.gzx.club.subject.infra.basic.entity.SubjectLabel;
 import com.gzx.club.subject.infra.basic.entity.SubjectMapping;
@@ -23,6 +24,7 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,6 +39,9 @@ public class SubjectCategoryDomainServiceImpl implements SubjectCategoryDomainSe
 
     @Resource
     private ThreadPoolExecutor threadPoolExecutor;
+
+    @Resource
+    private CacheUtil cacheUtil;
 
     @Resource
     private SubjectLabelService subjectLabelService;
@@ -93,14 +98,23 @@ public class SubjectCategoryDomainServiceImpl implements SubjectCategoryDomainSe
      * @Date: 2024-06-26
      */
     @Override
-    @SneakyThrows
     public List<SubjectCategoryBO> queryCategoryAndLabel(SubjectCategoryBO subjectCategoryBO) {
+        Long id = subjectCategoryBO.getId();
+        String cacheKey = "categoryAndLabel." + id;
+        List<SubjectCategoryBO> subjectCategoryBOs = cacheUtil.getCache(cacheKey,
+                SubjectCategoryBO.class,
+                // 这里需要传入随便一个String类型的参数作为apply方法的参数，但是实际是不使用的，因为apply方法的实现体为queryCategoryByParentId(id)
+                s -> queryCategoryByParentId(id));
+
+        return subjectCategoryBOs;
+    }
+    @SneakyThrows
+    public List<SubjectCategoryBO> queryCategoryByParentId(Long parentId) {
         SubjectCategory subjectCategory = new SubjectCategory();
-        subjectCategory.setParentId(subjectCategoryBO.getId());
+        subjectCategory.setParentId(parentId);
         subjectCategory.setIsDeleted(IsDeletedFlagEnum.UN_DELETED.code);
         List<SubjectCategory> subjectCategoryList = subjectCategoryService.queryCategory(subjectCategory);
         List<SubjectCategoryBO> subjectCategoryBOs = SubjectCategoryConverter.INSTANCE.convertCategoriesToBOs(subjectCategoryList);
-
 
         // 用线程池优化查询，注意要在所有线程都结束后才能够返回
         List<FutureTask<Map<Long, List<SubjectLabelBO>>>> futureTasks = new LinkedList<>();
@@ -116,7 +130,7 @@ public class SubjectCategoryDomainServiceImpl implements SubjectCategoryDomainSe
         List<CompletableFuture<Map<Long, List<SubjectLabelBO>>>> futures = subjectCategoryBOs.stream()
                 .map(subjectCategoryBO1 ->
                         CompletableFuture.supplyAsync(() ->
-                                queryLabel(subjectCategoryBO), threadPoolExecutor))
+                                queryLabel(subjectCategoryBO1), threadPoolExecutor))
                 .collect(Collectors.toList());
         HashMap<Long, List<SubjectLabelBO>> map = new HashMap<>();
         for (CompletableFuture<Map<Long, List<SubjectLabelBO>>> future: futures) {

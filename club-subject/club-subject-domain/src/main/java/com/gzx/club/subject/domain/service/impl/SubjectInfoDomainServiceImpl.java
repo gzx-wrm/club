@@ -3,25 +3,35 @@ package com.gzx.club.subject.domain.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.gzx.club.subject.common.entity.PageResult;
 import com.gzx.club.subject.common.enums.IsDeletedFlagEnum;
+import com.gzx.club.subject.common.utils.IdWorkerUtil;
+import com.gzx.club.subject.common.utils.LoginUtil;
 import com.gzx.club.subject.domain.convert.SubjectInfoConverter;
 import com.gzx.club.subject.domain.entity.SubjectInfoBO;
 import com.gzx.club.subject.domain.entity.SubjectOptionBO;
 import com.gzx.club.subject.domain.handler.SubjectTypeHandler;
 import com.gzx.club.subject.domain.handler.SubjectTypeHandlerFactory;
+import com.gzx.club.subject.domain.redis.RedisUtil;
 import com.gzx.club.subject.domain.service.SubjectInfoDomainService;
+import com.gzx.club.subject.infra.basic.entity.EsSubjectInfo;
 import com.gzx.club.subject.infra.basic.entity.SubjectInfo;
 import com.gzx.club.subject.infra.basic.entity.SubjectLabel;
 import com.gzx.club.subject.infra.basic.entity.SubjectMapping;
+import com.gzx.club.subject.infra.basic.service.SubjectEsService;
 import com.gzx.club.subject.infra.basic.service.SubjectInfoService;
 import com.gzx.club.subject.infra.basic.service.SubjectLabelService;
 import com.gzx.club.subject.infra.basic.service.SubjectMappingService;
+import com.gzx.club.subject.infra.entity.UserInfo;
+import com.gzx.club.subject.infra.rpc.UserRPC;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -44,7 +54,18 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
     SubjectMappingService subjectMappingService;
 
     @Resource
+    SubjectEsService subjectEsService;
+
+    @Resource
     SubjectLabelService subjectLabelService;
+
+    @Resource
+    RedisUtil redisUtil;
+
+    @Resource
+    UserRPC userRPC;
+
+    private static final String RANK_KEY = "subject_rank";
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -77,13 +98,27 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
             });
         });
         subjectMappingService.insertBatch(mappingList);
+
+        //同步到es
+        EsSubjectInfo subjectInfoEs = new EsSubjectInfo();
+        subjectInfoEs.setDocId(new IdWorkerUtil(1, 1, 1).nextId());
+        subjectInfoEs.setSubjectId(subjectInfo.getId());
+        subjectInfoEs.setSubjectAnswer(subjectInfoBO.getSubjectAnswer());
+        subjectInfoEs.setCreateTime(new Date().getTime());
+        subjectInfoEs.setCreateUser("鸡翅");
+        subjectInfoEs.setSubjectName(subjectInfo.getSubjectName());
+        subjectInfoEs.setSubjectType(subjectInfo.getSubjectType());
+        subjectEsService.insert(subjectInfoEs);
+
+        // 同步到redis
+        redisUtil.addScore(RANK_KEY, LoginUtil.getLoginId(), 1);
     }
 
     @Override
     public PageResult<SubjectInfoBO> getSubjectPage(SubjectInfoBO subjectInfoBO) {
         PageResult<SubjectInfoBO> pageResult = new PageResult<>();
-        pageResult.setPageNo(subjectInfoBO.getPageNo());
-        pageResult.setPageSize(subjectInfoBO.getPageSize());
+        pageResult.setPageNo(subjectInfoBO.pageNo());
+        pageResult.setPageSize(subjectInfoBO.pageSize());
 
         SubjectInfo subjectInfo = SubjectInfoConverter.INSTANCE.convertBoToInfo(subjectInfoBO);
         long count = subjectInfoService.countByCondition(subjectInfo, subjectInfoBO.getCategoryId(), subjectInfoBO.getLabelId());
@@ -93,7 +128,7 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
 
         Integer offset = (pageResult.getPageNo() - 1) * pageResult.getPageSize();
 
-        List<SubjectInfo> subjectInfoList = subjectInfoService.queryPage(subjectInfo, subjectInfoBO.getCategoryId(), subjectInfoBO.getLabelId(), offset, subjectInfoBO.getPageSize());
+        List<SubjectInfo> subjectInfoList = subjectInfoService.queryPage(subjectInfo, subjectInfoBO.getCategoryId(), subjectInfoBO.getLabelId(), offset, subjectInfoBO.pageSize());
         pageResult.setTotal(subjectInfoList.size());
         pageResult.setRecords(SubjectInfoConverter.INSTANCE.convertInfosToBos(subjectInfoList));
 
@@ -121,5 +156,36 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
         return subjectInfoBO1;
     }
 
+    @Override
+    public PageResult<EsSubjectInfo> getSubjectPageBySearch(SubjectInfoBO subjectInfoBO) {
+        PageResult<EsSubjectInfo> pageResult = new PageResult<>();
+        Integer pageNo = subjectInfoBO.pageNo();
+        Integer pageSize = subjectInfoBO.pageSize();
+        pageResult.setPageNo(pageNo);
+        pageResult.setPageSize(pageSize);
 
+        EsSubjectInfo subjectInfoEs = new EsSubjectInfo();
+        subjectInfoEs.setKeyword(subjectInfoBO.getKeyword());
+        int from = (pageNo - 1) * pageSize;
+        List<EsSubjectInfo> esSubjectInfos = subjectEsService.querySubjectList(subjectInfoEs, from, pageSize);
+        pageResult.setRecords(esSubjectInfos);
+
+        return pageResult;
+    }
+
+    @Override
+    public List<SubjectInfoBO> getContributeList() {
+        Set<ZSetOperations.TypedTuple<String>> typedTuples = redisUtil.rangeWithScore(RANK_KEY, 0, 5);
+        LinkedList<SubjectInfoBO> res = new LinkedList<>();
+        for (ZSetOperations.TypedTuple<String> typedTuple : typedTuples) {
+            SubjectInfoBO subjectInfoBO = new SubjectInfoBO();
+            subjectInfoBO.setSubjectCount(typedTuple.getScore().intValue());
+            UserInfo userInfo = userRPC.getUserInfo(typedTuple.getValue());
+            subjectInfoBO.setCreateUser(userInfo.getNickName());
+            subjectInfoBO.setCreateUserAvatar(userInfo.getAvatar());
+
+            res.add(subjectInfoBO);
+        }
+        return res;
+    }
 }
