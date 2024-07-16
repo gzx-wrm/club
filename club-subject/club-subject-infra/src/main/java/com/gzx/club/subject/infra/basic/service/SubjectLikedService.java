@@ -2,11 +2,14 @@ package com.gzx.club.subject.infra.basic.service;
 
 import com.gzx.club.subject.infra.basic.entity.SubjectLiked;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * 题目点赞表(SubjectLiked)表服务接口
  *
  * @author makejava
- * @since 2024-06-03 15:07:19
+ * @since 2024-07-02 13:24:45
  */
 public interface SubjectLikedService {
 
@@ -33,7 +36,7 @@ public interface SubjectLikedService {
      * @param subjectLiked 实例对象
      * @return 实例对象
      */
-    SubjectLiked update(SubjectLiked subjectLiked);
+    Integer update(SubjectLiked subjectLiked);
 
     /**
      * 通过主键删除数据
@@ -43,4 +46,11 @@ public interface SubjectLikedService {
      */
     boolean deleteById(Long id);
 
+    Integer insertBatch(LinkedList<SubjectLiked> likedLinkedList);
+
+    Long countByCondition(SubjectLiked subjectLiked);
+
+    List<SubjectLiked> queryPageByCondition(SubjectLiked subjectLiked, Integer offset, Integer limit);
+
+    Integer insertOrUpdateBatch(LinkedList<SubjectLiked> likedLinkedList);
 }

@@ -9,7 +9,7 @@ import java.util.List;
  * 题目点赞表(SubjectLiked)表数据库访问层
  *
  * @author makejava
- * @since 2024-06-03 15:07:19
+ * @since 2024-07-02 13:24:04
  */
 public interface SubjectLikedDao {
 
@@ -71,5 +71,8 @@ public interface SubjectLikedDao {
      */
     int deleteById(Long id);
 
+    List<SubjectLiked> queryPageByCondition(@Param("entity") SubjectLiked subjectLiked,
+                                            @Param("offset") Integer offset,
+                                            @Param("limit") Integer limit);
 }
 

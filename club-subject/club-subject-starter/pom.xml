@@ -48,6 +48,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.gzx.club</groupId>
+            <artifactId>club-subject-application-mq</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>

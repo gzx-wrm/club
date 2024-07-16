@@ -64,4 +64,5 @@ public interface SubjectInfoService {
      */
     boolean deleteById(Long id);
 
+    Long querySubjectIdCursor(Long subjectId, Long categoryId, Long labelId, Integer flag);
 }

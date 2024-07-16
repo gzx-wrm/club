@@ -108,6 +108,7 @@ public class SubjectCategoryDomainServiceImpl implements SubjectCategoryDomainSe
 
         return subjectCategoryBOs;
     }
+
     @SneakyThrows
     public List<SubjectCategoryBO> queryCategoryByParentId(Long parentId) {
         SubjectCategory subjectCategory = new SubjectCategory();

@@ -14,6 +14,7 @@
     <description>刷题模块的应用层，该层的功能是提供需要的应用服务，同时为api层提供服务</description>
     <modules>
         <module>club-subject-application-controller</module>
+        <module>club-subject-application-mq</module>
     </modules>
 
     <properties>

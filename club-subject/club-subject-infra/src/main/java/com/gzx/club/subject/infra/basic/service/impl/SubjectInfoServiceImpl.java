@@ -75,4 +75,9 @@ public class SubjectInfoServiceImpl implements SubjectInfoService {
     public boolean deleteById(Long id) {
         return this.subjectInfoDao.deleteById(id) > 0;
     }
+
+    @Override
+    public Long querySubjectIdCursor(Long subjectId, Long categoryId, Long labelId, Integer flag) {
+        return this.subjectInfoDao.querySubjectIdCursor(subjectId, categoryId, labelId, flag);
+    }
 }

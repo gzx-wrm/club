@@ -6,12 +6,14 @@ import com.gzx.club.subject.infra.basic.service.SubjectLikedService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * 题目点赞表(SubjectLiked)表服务实现类
  *
  * @author makejava
- * @since 2024-06-03 15:07:19
+ * @since 2024-07-02 13:24:48
  */
 @Service("subjectLikedService")
 public class SubjectLikedServiceImpl implements SubjectLikedService {
@@ -49,9 +51,8 @@ public class SubjectLikedServiceImpl implements SubjectLikedService {
      * @return 实例对象
      */
     @Override
-    public SubjectLiked update(SubjectLiked subjectLiked) {
-        this.subjectLikedDao.update(subjectLiked);
-        return this.queryById(subjectLiked.getId());
+    public Integer update(SubjectLiked subjectLiked) {
+        return this.subjectLikedDao.update(subjectLiked);
     }
 
     /**
@@ -63,5 +64,25 @@ public class SubjectLikedServiceImpl implements SubjectLikedService {
     @Override
     public boolean deleteById(Long id) {
         return this.subjectLikedDao.deleteById(id) > 0;
+    }
+
+    @Override
+    public Integer insertBatch(LinkedList<SubjectLiked> likedLinkedList) {
+        return this.subjectLikedDao.insertBatch(likedLinkedList);
+    }
+
+    @Override
+    public Long countByCondition(SubjectLiked subjectLiked) {
+        return this.subjectLikedDao.count(subjectLiked);
+    }
+
+    @Override
+    public List<SubjectLiked> queryPageByCondition(SubjectLiked subjectLiked, Integer offset, Integer limit) {
+        return this.subjectLikedDao.queryPageByCondition(subjectLiked, offset, limit);
+    }
+
+    @Override
+    public Integer insertOrUpdateBatch(LinkedList<SubjectLiked> likedLinkedList) {
+        return this.subjectLikedDao.insertOrUpdateBatch(likedLinkedList);
     }
 }

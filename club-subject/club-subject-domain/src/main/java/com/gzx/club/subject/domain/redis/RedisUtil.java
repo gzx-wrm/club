@@ -1,12 +1,16 @@
 package com.gzx.club.subject.domain.redis;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -52,6 +56,10 @@ public class RedisUtil {
         redisTemplate.opsForValue().set(key, value);
     }
 
+    public long increBy(String key, long increBy) {
+        return redisTemplate.opsForValue().increment(key, increBy);
+    }
+
     /**
      * set(带过期)
      */
@@ -64,6 +72,25 @@ public class RedisUtil {
      */
     public String get(String key) {
         return (String) redisTemplate.opsForValue().get(key);
+    }
+
+    public Integer getInt(String key) {
+        return (Integer) redisTemplate.opsForValue().get(key);
+    }
+
+    public void hset(String key, String hkey, Object value) {
+        redisTemplate.opsForHash().put(key, hkey, value);
+    }
+
+    public Map<Object, Object> hgetAndDelete(String key) {
+        Cursor<Map.Entry<Object, Object>> cursor = redisTemplate.opsForHash().scan(key, ScanOptions.NONE);
+        HashMap<Object, Object> res = new HashMap<>();
+        while (cursor.hasNext()) {
+            Map.Entry<Object, Object> next = cursor.next();
+            res.put(next.getKey(), next.getValue());
+            redisTemplate.opsForHash().delete(key, next.getKey());
+        }
+        return res;
     }
 
     public Boolean zAdd(String key, String value, Long score) {

@@ -86,5 +86,6 @@ public interface SubjectInfoDao {
      */
     int deleteById(Long id);
 
+    Long querySubjectIdCursor(Long subjectId, Long categoryId, Long labelId, Integer flag);
 }
 
