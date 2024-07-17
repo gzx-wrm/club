@@ -9,6 +9,7 @@ import com.gzx.club.circle.api.req.RemoveShareMomentReq;
 import com.gzx.club.circle.api.req.SaveMomentCircleReq;
 import com.gzx.club.circle.api.vo.ShareMomentVO;
 import com.gzx.club.circle.server.entity.po.ShareCircle;
+import com.gzx.club.circle.server.sensitive.WordFilter;
 import com.gzx.club.circle.server.service.ShareCircleService;
 import com.gzx.club.circle.server.service.ShareMomentService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +35,9 @@ public class ShareMomentController {
     @Resource
     private ShareCircleService shareCircleService;
 
+    @Resource
+    private WordFilter wordFilter;
+
     /**
      * 发布内容
      */
@@ -47,7 +51,10 @@ public class ShareMomentController {
             Preconditions.checkArgument(Objects.nonNull(req.getCircleId()), "圈子ID不能为空！");
             ShareCircle data = shareCircleService.getById(req.getCircleId());
             Preconditions.checkArgument((Objects.nonNull(data) && data.getParentId() != -1), "非法圈子ID！");
-            Preconditions.checkArgument((Objects.nonNull(req.getContent())), "鸡圈不能为空！");
+
+            Preconditions.checkArgument((Objects.nonNull(req.getContent()) || Objects.nonNull(req.getPicUrlList())), "鸡圈不能为空！");
+            wordFilter.check(req.getContent());
+
             Boolean result = shareMomentService.saveMoment(req);
             if (log.isInfoEnabled()) {
                 log.info("发布内容{}", JSON.toJSONString(result));
