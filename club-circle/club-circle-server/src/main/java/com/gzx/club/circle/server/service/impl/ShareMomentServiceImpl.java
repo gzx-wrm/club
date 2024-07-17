@@ -3,6 +3,7 @@ package com.gzx.club.circle.server.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -13,15 +14,22 @@ import com.gzx.club.circle.api.req.GetShareMomentReq;
 import com.gzx.club.circle.api.req.RemoveShareMomentReq;
 import com.gzx.club.circle.api.req.SaveMomentCircleReq;
 import com.gzx.club.circle.api.vo.ShareMomentVO;
+import com.gzx.club.circle.server.dao.ShareCommentReplyMapper;
 import com.gzx.club.circle.server.dao.ShareMomentMapper;
+import com.gzx.club.circle.server.entity.dto.UserInfo;
+import com.gzx.club.circle.server.entity.po.ShareCommentReply;
 import com.gzx.club.circle.server.entity.po.ShareMoment;
+import com.gzx.club.circle.server.rpc.UserRpc;
 import com.gzx.club.circle.server.service.ShareMomentService;
 import com.gzx.club.circle.server.util.LoginUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -33,6 +41,12 @@ import java.util.stream.Collectors;
  **/
 @Service
 public class ShareMomentServiceImpl extends ServiceImpl<ShareMomentMapper, ShareMoment> implements ShareMomentService {
+
+    @Resource
+    private ShareCommentReplyMapper shareCommentReplyMapper;
+
+    @Resource
+    private UserRpc userRpc;
 
     @Override
     public Boolean saveMoment(SaveMomentCircleReq req) {
@@ -60,6 +74,9 @@ public class ShareMomentServiceImpl extends ServiceImpl<ShareMomentMapper, Share
         Page<ShareMoment> pageRes = super.page(page, query);
         PageResult<ShareMomentVO> result = new PageResult<>();
         List<ShareMoment> records = pageRes.getRecords();
+        List<String> userNameList = records.stream().map(ShareMoment::getCreatedBy).distinct().collect(Collectors.toList());
+        Map<String, UserInfo> userInfoMap = userRpc.batchGetUserInfo(userNameList);
+        UserInfo defaultUser = new UserInfo();
         List<ShareMomentVO> list = records.stream().map(item -> {
             ShareMomentVO vo = new ShareMomentVO();
             vo.setId(item.getId());
@@ -71,6 +88,10 @@ public class ShareMomentServiceImpl extends ServiceImpl<ShareMomentMapper, Share
             }
             vo.setReplyCount(item.getReplyCount());
             vo.setCreatedTime(item.getCreatedTime().getTime());
+
+            UserInfo user = userInfoMap.getOrDefault(item.getCreatedBy(), defaultUser);
+            vo.setUserName(user.getNickName());
+            vo.setUserAvatar(user.getAvatar());
             return vo;
         }).collect(Collectors.toList());
         result.setRecords(list);
@@ -81,9 +102,20 @@ public class ShareMomentServiceImpl extends ServiceImpl<ShareMomentMapper, Share
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean removeMoment(RemoveShareMomentReq req) {
+        ShareCommentReply updateEntity = new ShareCommentReply();
+        updateEntity.setIsDeleted(IsDeletedFlagEnum.DELETED.getCode());
+        LambdaUpdateWrapper<ShareCommentReply> update = Wrappers.<ShareCommentReply>lambdaUpdate().eq(ShareCommentReply::getMomentId, req.getId());
+        shareCommentReplyMapper.update(updateEntity, update);
         return super.update(Wrappers.<ShareMoment>lambdaUpdate().eq(ShareMoment::getId, req.getId())
                 .eq(ShareMoment::getIsDeleted, IsDeletedFlagEnum.UN_DELETED.getCode())
                 .set(ShareMoment::getIsDeleted, IsDeletedFlagEnum.DELETED.getCode()));
     }
+
+    @Override
+    public void incrReplyCount(Long id, int count) {
+        getBaseMapper().incrReplyCount(id, count);
+    }
+
 }

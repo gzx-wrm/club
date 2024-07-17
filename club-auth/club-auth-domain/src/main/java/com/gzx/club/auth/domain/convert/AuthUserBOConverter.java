@@ -5,6 +5,8 @@ import com.gzx.club.auth.infra.basic.entity.AuthUser;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 /**
  * 用户bo转换器
  *
@@ -17,4 +19,6 @@ public interface AuthUserBOConverter {
     AuthUser convertBOToEntity(AuthUserBO authUserBO);
 
     AuthUserBO convertEntityToBO(AuthUser user);
+
+    List<AuthUserBO> convertEntityToBO(List<AuthUser> user);
 }

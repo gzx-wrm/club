@@ -5,6 +5,8 @@ import com.gzx.club.auth.domain.entity.AuthUserBO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 /**
  * 用户dto转换器
  */
@@ -16,4 +18,6 @@ public interface AuthUserDTOConverter {
     AuthUserBO convertDTOToBO(AuthUserDTO authUserDTO);
 
     AuthUserDTO convertBOToDTO(AuthUserBO userInfo);
+
+    List<AuthUserDTO> convertBOToDTO(List<AuthUserBO> userInfo);
 }

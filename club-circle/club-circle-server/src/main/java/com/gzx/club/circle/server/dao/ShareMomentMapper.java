@@ -8,4 +8,5 @@ import com.gzx.club.circle.server.entity.po.ShareMoment;
  */
 public interface ShareMomentMapper extends BaseMapper<ShareMoment> {
 
+    void incrReplyCount(Long id, int i);
 }

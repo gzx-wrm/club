@@ -13,7 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>club-circle-api</module>
-        <module>cliub-circle-server</module>
+        <module>club-circle-server</module>
     </modules>
 
     <properties>

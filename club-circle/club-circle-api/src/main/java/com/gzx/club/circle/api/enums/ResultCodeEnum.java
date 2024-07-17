@@ -1,4 +1,4 @@
-package com.gzx.club.circle.api.common;
+package com.gzx.club.circle.api.enums;
 
 import lombok.Getter;
 

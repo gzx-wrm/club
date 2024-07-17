@@ -1,5 +1,6 @@
 package com.gzx.club.circle.api.common;
 
+import com.gzx.club.circle.api.enums.ResultCodeEnum;
 import lombok.Data;
 
 @Data

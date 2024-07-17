@@ -74,5 +74,7 @@ public interface AuthUserDao {
     List<AuthUser> queryByCondition(AuthUser existAuthUser);
 
     Integer updateByUsername(AuthUser authUser);
+
+    List<AuthUser> queryByIds(@Param("entities") List<String> userNameList);
 }
 

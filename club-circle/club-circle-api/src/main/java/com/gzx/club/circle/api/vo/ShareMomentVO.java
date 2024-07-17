@@ -44,4 +44,11 @@ public class ShareMomentVO implements Serializable {
      */
     private Long createdTime;
 
+    /**
+     * 用户信息展示相关属性
+     */
+    private String userName;
+
+    private String userAvatar;
+
 }

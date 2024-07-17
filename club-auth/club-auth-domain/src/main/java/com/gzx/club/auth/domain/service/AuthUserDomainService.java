@@ -3,6 +3,8 @@ package com.gzx.club.auth.domain.service;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import com.gzx.club.auth.domain.entity.AuthUserBO;
 
+import java.util.List;
+
 public interface AuthUserDomainService {
     /**
      * 注册
@@ -22,4 +24,6 @@ public interface AuthUserDomainService {
     SaTokenInfo login(String verifyCode);
 
     AuthUserBO getUserInfo(AuthUserBO authUserBO);
+
+    List<AuthUserBO> listUserInfoByIds(List<String> ids);
 }

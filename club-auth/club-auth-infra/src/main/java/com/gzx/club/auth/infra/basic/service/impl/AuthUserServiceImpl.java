@@ -77,4 +77,9 @@ public class AuthUserServiceImpl implements AuthUserService {
     public Integer updateByUsername(AuthUser authUser) {
         return this.authUserDao.updateByUsername(authUser);
     }
+
+    @Override
+    public List<AuthUser> queryByIds(List<String> userNameList) {
+        return this.authUserDao.queryByIds(userNameList);
+    }
 }
